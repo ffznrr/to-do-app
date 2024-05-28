@@ -1,23 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
 function App() {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      action: "homework progate",
+    },
+    {
+      id: 2,
+      action: "homework progate 2",
+    },
+  ]);
+
+  console.log(todos);
+
+  const handle = (event) => {
+    event.preventDefault();
+    const isi = event.target.elements.input.value;
+
+    setTodos([...todos, { id: todos.length + 1, action: isi }]);
+    event.target.reset();
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>To Do List App</h1>
+
+      <div>
+        <form onSubmit={handle}>
+          <label>INPUT</label>
+          <input
+            type="text"
+            name="input"
+          />
+          <button>Tambah</button>
+        </form>
+      </div>
+
+      <ul>
+        {todos.map((data) => (
+          <li key={data.id}>{data.action}</li>
+        ))}
+      </ul>
     </div>
   );
 }
